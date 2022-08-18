@@ -7,10 +7,28 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <div class="container">
-        <h1>Hello World Challenge</h1>
-        <h1>We love Valorant!</h1>
+    <form class="search-bar">
+        <input type="text" name="city" id="city" placeholder="Search City...">
+        <button type="submit" id="search-city">Search</button>
+    </form>
+    <div class="main-card">
+        <div class="main-top">
+            <div class="top">
+                <h1 class="time"></h1>
+                <h1 class="city-name"></h1>
+                <h1 class="date"></h1>
+                <h1 class="temperature"></h1>
+            </div>
+            <div class="sky-description">
+                <p class="sky"></p>
+                <img src="" alt="" class="sky-icon">
+            </div>
+        </div>
+        <div class="main-bottom">
+            <p class="humidity">Humidity: <span class="humi">#</span></p>
+            <p class="feels-like">Feels Like: <span class="feel">#</span></p>
+            <p class="wind-speed">Wind Speed(mph): <span class="wind">#</span></p>
+        </div>
     </div>
-    <h1 class="temperature"></h1>
 </body>
 </html>
