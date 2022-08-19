@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800&display=swap');
 $nunito-sans: 'Nunito Sans', sans-serif;
 
 
@@ -22,12 +22,12 @@ $night-sky-shadow2: #354e96;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    background-color: $partly-cloudy;
     font-family: $nunito-sans;
-    // color: #ebedf2;
+    font-weight: 400;
+}   
+// color: #ebedf2;
+body {
+    background-color: $sky-blue;
 }
 
 .main-card {
@@ -35,36 +35,124 @@ body {
     flex-direction: column;
     margin-top: 5rem;
     margin-left: 5rem;
-    width: 33rem;
+    width: 35rem;
     height: 20rem;
-    border-radius: 50px;
-    background: $partly-cloudy;
-    box-shadow:  20px 20px 60px $partly-cloudy-shadow1,
-             -20px -20px 60px $partly-cloudy-shadow2;
-}
+    border-radius: 38px;
+    background: $sky-blue;
+    box-shadow:  20px 20px 60px $sky-blue-shadow1,
+                -20px -20px 60px $sky-blue-shadow2;
+    
+    .main-top {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
 
-.main-top {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-}
+    .sky-description {
+        p {
+            font-size: 1.5rem;
+        }
+    }
 
-h1.temperature {
-    font-size: 3.5rem;
-}
-
-.main-card {
-    gap: 1rem;
     .main-bottom {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
-        // margin-left: $left-margin;
-    }
-    span {
-        // margin-left: $left-margin;
+        font-size: 1.2rem;
     }
 }
 
+h1.temperature {
+    font-weight: 800;
+    font-size: 3.5rem;
+}
+
+
+// SCSS for the clouds
+.cloud-container1 {
+    position: absolute;
+    top: 30%;
+    left: 90%;
+    transform: translate(-50%,-50%);
+}
+.cloud-container2 {
+    position: absolute;
+    top: 60%;
+    left: 85%;
+    transform: translate(-50%,-50%);
+}
+.cloud-container3 {
+    position: absolute;
+    top: 18%;
+    left: 80%;
+    transform: translate(-50%,-50%);
+}
+.cloud-container4 {
+    position: absolute;
+    top: 25%;
+    left: 57%;
+    transform: translate(-20%,-50%);
+}
+.cloud-container5 {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%,-50%);
+}
+
+.cloud {
+    z-index: -1;
+    background: rgb(255, 255, 255);
+    width: 300px; 
+    height: 100px;
+    border-radius: 150px;	
+    box-shadow: 10px 10px rgba(0,0,0,0.2);
+    animation: move 3s infinite;
+}
+
+.cloud:after {
+    content: '';
+    background: rgb(255, 255, 255);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    top: -50px;
+    left: 50px;
+}
+  
+.cloud:before {
+    content: '';
+    background: rgb(255, 255, 255);
+    position: absolute;
+    width: 170px;
+    height: 150px;
+    border-radius: 50%;
+    top: -90px;
+    right: 40px;
+}
+  
+@keyframes move {
+    0% {
+      transform: translatex(0);
+    }
+    50% {
+      transform: translatex(-40px);
+    }
+}
+
+// SCSS For the Sun
+.sun {
+    position: absolute;
+    top: 15%;
+    left: 65%;
+    background-color: #FDB813;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 10px orange,
+                0 0 60px orange,
+                0 0 200px yellow,
+                inset 0 0 80px yellow;
+}

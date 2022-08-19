@@ -1,5 +1,12 @@
 import './styles/main.scss';
 
+// date-fns library
+// import { fromUnixTime } from 'date-fns'
+
+
+// Date API
+// import { formatInTimeZone } from 'date-fns-tz'
+
 // DOM elements
 const time = document.querySelector('.time');
 const skyInfo = document.querySelector('.sky');
@@ -16,6 +23,8 @@ const wind = document.querySelector('.wind');
 const searchBtn = document.getElementById('search-city');
 const searchText = document.getElementById('city');
 const form = document.querySelector('search-bar');
+
+const clouds = document.getElementById('cloud-div');
 
 
 searchBtn.addEventListener('click', handleSearchBtn);
@@ -37,6 +46,7 @@ async function weatherAPI(location) {
         // const currentData = getWeatherData(weatherData);
         // const display = displayData(currentData);
         displayData(weatherData);
+        timeZone(weatherData);
         console.log(weatherData);
         // reset();
     }
@@ -44,6 +54,11 @@ async function weatherAPI(location) {
         console.error(error);
     }
 }
+
+// Local Time Zone Function
+// function timeZone(localTime) {
+//     const date = new Date()
+// }
 
 // Updates for live time
 setInterval(() => {
@@ -63,18 +78,26 @@ setInterval(() => {
 
 // DOM manipulation
 function displayData(data) {
-    let date_time = new Date();
-    // time.textContent = date_time.toLocaleTimeString();
     skyInfo.textContent = data.current.condition.text;
     skyImg.src = data.current.condition.icon;
     
     city.textContent = data.location.name + ", " + data.location.region;
-    // date.textContent = date_time.toDateString();
     temperature.textContent = data.current.temp_f + "\u00B0 F";
 
     humidity.textContent = data.current.humidity + "%";
     feelsLike.textContent = data.current.feelslike_f;
     wind.textContent = data.current.wind_mph;
+
+    // Change background based on sky and time
+    if (data.current.condition.text == "Sunny" ||
+        data.current.condition.text == "Clear") {
+            document.body.style.backgroundColor = "#87CEEB";
+            clouds.style.display = 'none';
+        }
+    else if (data.current.condition.text == "Partly cloudy") {
+        document.body.style.backgroundColor = "#9dbbce";
+        clouds.style.display = null;
+    }
 
 }
 
@@ -93,4 +116,4 @@ function userLocation() {
     weatherAPI(userLoc);
 }
 
-weatherAPI('new york');
+weatherAPI('long beach, ca, us');
