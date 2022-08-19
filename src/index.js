@@ -8,6 +8,8 @@ import './styles/main.scss';
 // import { formatInTimeZone } from 'date-fns-tz'
 
 // DOM elements
+const mainCard = document.querySelector('.main-card');
+
 const time = document.querySelector('.time');
 const skyInfo = document.querySelector('.sky');
 const skyImg = document.querySelector('.sky-icon');
@@ -25,6 +27,8 @@ const searchText = document.getElementById('city');
 const form = document.querySelector('search-bar');
 
 const clouds = document.getElementById('cloud-div');
+const sun = document.querySelector('.sun');
+const moon = document.querySelector('.moon');
 
 
 searchBtn.addEventListener('click', handleSearchBtn);
@@ -43,12 +47,9 @@ async function weatherAPI(location) {
         const url = `http://api.weatherapi.com/v1/forecast.json?key=ec40df2a2eb44808bf6211459221508&q=${location}&days=5&aqi=no&alerts=no`;
         const response = await fetch(url, {mode: 'cors'});
         const weatherData = await response.json();
-        // const currentData = getWeatherData(weatherData);
-        // const display = displayData(currentData);
+
         displayData(weatherData);
-        timeZone(weatherData);
         console.log(weatherData);
-        // reset();
     }
     catch (error) { 
         console.error(error);
@@ -61,16 +62,21 @@ async function weatherAPI(location) {
 // }
 
 // Updates for live time
+const dates = new Date();
+const month = dates.getMonth();
+const day = dates.getDate();
+const minute = dates.getMinutes();
+const hour = dates.getHours();
 setInterval(() => {
-    const dates = new Date();
-    const month = dates.getMonth();
-    const day = dates.getDate();
-    const minute = dates.getMinutes();
-    const hour = dates.getHours();
-    const hour12Format = hour >= 13 ? hour - 12 : hour;
+    // const dates = new Date();
+    // const month = dates.getMonth();
+    // const day = dates.getDate();
+    // const minute = dates.getMinutes();
+    // const hour = dates.getHours();
+    const hour12Format = hour >= 13 ? hour - 12 : 
+                                    hour == 0 ? hour + 12 : hour;
     const am_pm = hour >= 12 ? "PM" : "AM";
     const minuteFormat = minute < 10 ? "0" + minute : minute;
-
     time.textContent = `${hour12Format}:${minuteFormat} ${am_pm}`;
 }, 1000)
 
@@ -78,7 +84,20 @@ setInterval(() => {
 
 // DOM manipulation
 function displayData(data) {
-    skyInfo.textContent = data.current.condition.text;
+    const sky_blue = "#87CEEB";
+    const sky_blue_shadow1 = "#73afc8";
+    const sky_blue_shadow2 = "#9bedff";
+
+    const partly_cloudy = "#9dbbce";
+    const partly_cloudy_shadow1 = "#859faf";
+    const partly_cloudy_shadow2 = "#b5d7ed";
+
+    const night_sky = "#2e4482";
+    const night_sky_shadow1 = "#273a6f";
+    const night_sky_shadow2 = "#354e96";
+
+    let skyText = data.current.condition.text;
+    skyInfo.textContent = skyText;
     skyImg.src = data.current.condition.icon;
     
     city.textContent = data.location.name + ", " + data.location.region;
@@ -89,16 +108,56 @@ function displayData(data) {
     wind.textContent = data.current.wind_mph;
 
     // Change background based on sky and time
-    if (data.current.condition.text == "Sunny" ||
-        data.current.condition.text == "Clear") {
-            document.body.style.backgroundColor = "#87CEEB";
-            clouds.style.display = 'none';
-        }
-    else if (data.current.condition.text == "Partly cloudy") {
+    /*
+    1. Sun Out and Sky blue -> 
+        if (hour <= 19 && minute <= 30) &&
+            (skyInfo text = "Sunny" || skyInto text = "Clear")
+
+    2. Sun Out w/ Clouds and Sky Blue
+        if (hour <= 19 && minute <= 30) &&
+        (skyInfo text.toLowerCase().includes("cloud")) //true?
+
+    3. Only Clouds and Grey Sky
+        if (skyInfo text.toLowerCase().includes("rain")) //true?
+
+    3. Moon Out w/ Night Sky
+        if (hour >= 19 && minute > 30) 
+
+    4. Moon Out w/ Clouds and Night Sky
+        if (hour >= 19 && minute > 30) 
+        (skyInfo text.toLowerCase().includes("cloud"))
+
+    5. 
+    */
+
+    if ((hour >= 6 && hour <= 19) && 
+        (skyText == "Sunny" || skyText == "Clear")) {
+            sun.style.display = null; // Sun is out
+            document.body.style.backgroundColor = sky_blue;
+            clouds.style.display = 'none'; // No clouds
+    }
+    else if ((hour >= 6 && hour <= 19) && 
+        (skyText.toLowerCase().includes("cloud"))) {
+            sun.style.display = null;
+            document.body.style.backgroundColor = sky_blue;
+            clouds.style.display = null; // clouds in sky
+    }
+    // else if (skyText.toLowerCase().includes("rain")) {
+
+    // }
+    else if ((skyText == "Partly cloudy")) {
         document.body.style.backgroundColor = "#9dbbce";
         clouds.style.display = null;
     }
-
+    else if ((hour < 6 || hour >= 19) && skyText == "Clear") {
+        document.body.style.color = "white";
+        sun.style.display = "none";
+        clouds.style.display = 'none';
+        document.body.style.backgroundColor = night_sky;
+        mainCard.style.backgroundColor = night_sky;
+        mainCard.style.boxShadow = `20px 20px 60px ${night_sky_shadow1}, 
+                                    -20px -20px 60px ${night_sky_shadow2}`;
+    }
 }
 
 function reset() {
