@@ -1,7 +1,70 @@
-$font-size: 1rem;
-$font-color: lch(53 105 40);
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+$nunito-sans: 'Nunito Sans', sans-serif;
 
-h1 {
-    font-size: 1rem;
-    color: goldenrod;
+
+$left-margin: 2.5rem;
+
+// Sky colors
+$sky-blue: #87CEEB;
+$sky-blue-shadow1: #73afc8;
+$sky-blue-shadow2: #9bedff;
+
+$partly-cloudy: #9dbbce;
+$partly-cloudy-shadow1: #859faf;
+$partly-cloudy-shadow2: #b5d7ed;
+
+$night-sky: #2e4482;
+$night-sky-shadow1: #273a6f;
+$night-sky-shadow2: #354e96;
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    background-color: $partly-cloudy;
+    font-family: $nunito-sans;
+    // color: #ebedf2;
+}
+
+.main-card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    margin-left: 5rem;
+    width: 33rem;
+    height: 20rem;
+    border-radius: 50px;
+    background: $partly-cloudy;
+    box-shadow:  20px 20px 60px $partly-cloudy-shadow1,
+             -20px -20px 60px $partly-cloudy-shadow2;
+}
+
+.main-top {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1.temperature {
+    font-size: 3.5rem;
+}
+
+.main-card {
+    gap: 1rem;
+    .main-bottom {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        // margin-left: $left-margin;
+    }
+    span {
+        // margin-left: $left-margin;
+    }
+}
+

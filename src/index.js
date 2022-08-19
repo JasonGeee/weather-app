@@ -54,8 +54,9 @@ setInterval(() => {
     const hour = dates.getHours();
     const hour12Format = hour >= 13 ? hour - 12 : hour;
     const am_pm = hour >= 12 ? "PM" : "AM";
+    const minuteFormat = minute < 10 ? "0" + minute : minute;
 
-    time.textContent = `${hour12Format}:${minute} ${am_pm}`;
+    time.textContent = `${hour12Format}:${minuteFormat} ${am_pm}`;
 }, 1000)
 
 
@@ -69,9 +70,9 @@ function displayData(data) {
     
     city.textContent = data.location.name + ", " + data.location.region;
     // date.textContent = date_time.toDateString();
-    temperature.textContent = data.current.temp_f;
+    temperature.textContent = data.current.temp_f + "\u00B0 F";
 
-    humidity.textContent = data.current.humidity;
+    humidity.textContent = data.current.humidity + "%";
     feelsLike.textContent = data.current.feelslike_f;
     wind.textContent = data.current.wind_mph;
 
