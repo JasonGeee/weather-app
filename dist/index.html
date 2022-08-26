@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-<script defer src="main.a6239dbb476c92c3afd8.bundle.js"></script></head>
+<script defer src="main.80771a9f943b6473dd78.bundle.js"></script></head>
 <body>
     <form class="search-bar">
         <input type="text" name="city" id="city" placeholder="Search City...">
-        <p class="error">No matching city/location!</p>
         <button type="submit" id="search-city">Search</button>
     </form>
     <div class="main-card">
         <div class="main-top">
             <div class="top">
                 <h1 class="time"></h1>
+                <h1 class="week-day"></h1>
                 <h1 class="city-name"></h1>
                 <h1 class="date"></h1>
                 <h1 class="temperature"></h1>
@@ -28,17 +28,49 @@
         <div class="main-bottom">
             <div>
                 <p class="humidity">Humidity: </p>
-                <span class="humi">#</span>
+                <span class="humi"></span>
             </div>
             <div>
                 <p class="feels-like">Feels Like: </p>
-                <span class="feel">#</span>
+                <span class="feel"></span>
             </div>
             <div>
                 <p class="wind-speed">Wind Speed(mph): </p>
-                <span class="wind">#</span>
+                <span class="wind"></span>
             </div>    
         </div>
     </div>
+    <div class="sun"></div>
+    <div class="moon">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="cloud-div">
+        <div class="cloud-container1">
+            <div class="cloud"></div>
+        </div>
+        <div class="cloud-container2">
+            <div class="cloud"></div>
+        </div>
+        <div class="cloud-container3">
+            <div class="cloud"></div>
+        </div>
+        <div class="cloud-container4">
+            <div class="cloud"></div>
+        </div>
+        <div class="cloud-container5">
+            <div class="cloud"></div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
 </body>
 </html>
