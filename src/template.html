@@ -7,6 +7,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
+
     <form class="search-bar">
         <input type="text" name="city" id="city" placeholder="Search City...">
         <button type="submit" id="search-city">Search</button>
@@ -15,6 +16,7 @@
         <div class="main-top">
             <div class="top">
                 <h1 class="time"></h1>
+                <h1 class="week-day"></h1>
                 <h1 class="city-name"></h1>
                 <h1 class="date"></h1>
                 <h1 class="temperature"></h1>
@@ -27,15 +29,15 @@
         <div class="main-bottom">
             <div>
                 <p class="humidity">Humidity: </p>
-                <span class="humi">#</span>
+                <span class="humi"></span>
             </div>
             <div>
                 <p class="feels-like">Feels Like: </p>
-                <span class="feel">#</span>
+                <span class="feel"></span>
             </div>
             <div>
                 <p class="wind-speed">Wind Speed(mph): </p>
-                <span class="wind">#</span>
+                <span class="wind"></span>
             </div>    
         </div>
     </div>
