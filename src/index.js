@@ -112,8 +112,6 @@ function displayData(data, calcTime) {
     const night_sky_shadow2 = '#354e96';
 
     const hour = calcTime.data.datetime.hour_24_wolz;
-    // const checkHour = new Date();
-    // const hour = checkHour.getHours();
 
     let skyText = data.current.condition.text;
     skyInfo.textContent = skyText;
@@ -165,11 +163,20 @@ function displayData(data, calcTime) {
             mainCard.style.boxShadow = `20px 20px 60px ${partly_cloudy_shadow1}, 
                                     -20px -20px 60px ${partly_cloudy_shadow2}`;
     }
-    // else if (skyText.toLowerCase().includes("rain")) {
+    // 4. Sun out w/ Overcast
+    else if ((hour >= 6 && hour < 19) && 
+        (skyText.toLowerCase().includes("overcast"))) {
+            sun.style.display = 'none';
+            moon.style.display = 'none';
+            clouds.style.display = null;
+            document.body.style.color = '#ffffff';
+            document.body.style.backgroundColor = partly_cloudy;
+            mainCard.style.backgroundColor = partly_cloudy;
+            mainCard.style.boxShadow = `20px 20px 60px ${partly_cloudy_shadow1}, 
+                                    -20px -20px 60px ${partly_cloudy_shadow2}`;
+    }
 
-    // }
-
-    //  3. Moon Out w/ Clouds and Night Sky
+    //  5. Moon Out w/ Clouds and Night Sky
     else if ((hour < 6 || hour >= 19) && (skyText == "Partly cloudy")) {
         sun.style.display = 'none';
         clouds.style.display = null;
@@ -181,7 +188,7 @@ function displayData(data, calcTime) {
                                     -20px -20px 60px ${night_sky_shadow2}`;
     }
 
-    // 4. Moon Out w/ Night Sky
+    // 6. Moon Out w/ Night Sky
     else if ((hour < 6 || hour >= 19) && skyText == "Clear") {
         
         sun.style.display = 'none';
