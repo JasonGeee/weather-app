@@ -19,12 +19,15 @@ const wind = document.querySelector('.wind');
 
 const searchBtn = document.getElementById('search-city');
 const searchText = document.getElementById('city');
-const form = document.querySelector('search-bar');
+const form = document.querySelector('.search-bar');
 
-const clouds = document.getElementById('cloud-div');
+const clouds = document.querySelector('.cloud-div');
 const sun = document.querySelector('.sun');
 const moon = document.querySelector('.moon');
 
+const humidityTitle = document.querySelector('.humidity');
+const feelsTitle = document.querySelector('.feels-like');
+const windTitle = document.querySelector('.wind-speed');
 
 searchBtn.addEventListener('click', handleSearchBtn);
 searchText.addEventListener('submit', handleSearchBtn);
@@ -42,29 +45,29 @@ async function weatherAPI(location) {
         const url = `http://api.weatherapi.com/v1/forecast.json?key=ec40df2a2eb44808bf6211459221508&q=${location}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url, {mode: 'cors'});
         const weatherData = await response.json();
-        const time_zone = weatherData.location.tz_id;
 
-        localTimeAPI(time_zone);
-        firstInitialTime(time_zone);
-        displayData(weatherData);
-        getDate(weatherData);
-        loadScreen();
+        const time_zone = weatherData.location.tz_id;
         
+        firstInitialTime(time_zone, weatherData);
+        localTimeAPI(time_zone);
+        loadScreen();
         
         console.log(weatherData);
     }
-    catch (error) { 
+    catch (error) {
+        alert("No matching city/location found! Please re-enter a valid location.");
         console.error(error);
     }
 }
 
-async function firstInitialTime(timeZoneID) {
+async function firstInitialTime(timeZoneID, weatherData) {
     try {
         const response = await fetch(`https://timezoneapi.io/api/timezone/?${timeZoneID}&token=aYGfeIuRrzGMtxwmUmjo`);
         const data = await response.json();
         initialHelper(data);
-        // console.log(data);
-
+        displayData(weatherData, data);
+        getDate(weatherData);
+        loadScreen();
     }
     catch (error) {
         console.error(error);
@@ -91,11 +94,11 @@ function localTimeAPI(timeZoneID) {
         }).catch(function (error) {
             console.error(error);
         });
-    }, 10000);
+    }, 60000);
 }
 
 // DOM manipulation
-function displayData(data) {
+function displayData(data, calcTime) {
     const sky_blue = '#87CEEB';
     const sky_blue_shadow1 = '#73afc8';
     const sky_blue_shadow2 = '#9bedff';
@@ -108,8 +111,9 @@ function displayData(data) {
     const night_sky_shadow1 = '#273a6f';
     const night_sky_shadow2 = '#354e96';
 
-    const checkHour = new Date();
-    const hour = checkHour.getHours();
+    const hour = calcTime.data.datetime.hour_24_wolz;
+    // const checkHour = new Date();
+    // const hour = checkHour.getHours();
 
     let skyText = data.current.condition.text;
     skyInfo.textContent = skyText;
@@ -122,13 +126,14 @@ function displayData(data) {
     feelsLike.textContent = data.current.feelslike_f;
     wind.textContent = data.current.wind_mph;
 
+
     // Change background based on sky and time
     // 1. Sun Out and Sky blue
     if ((hour >= 6 && hour < 19) && 
         (skyText == "Sunny" || skyText == "Clear")) {
             sun.style.display = null; // Sun is out
             moon.style.display = 'none'; // No moon
-            clouds.style.display = 'none'; // No clouds
+            clouds.style.display = 'none'; // No cloud
             document.body.style.color = '#ffffff';
             document.body.style.backgroundColor = sky_blue;
             mainCard.style.backgroundColor = sky_blue;
@@ -254,16 +259,14 @@ function reset() {
 
 // Function that displays a loader screen
 function loadScreen() {
-    const humidityTitle = document.querySelector('.humidity');
-    const feelsTitle = document.querySelector('.feels-like');
-    const windTitle = document.querySelector('.wind-speed');
     
     if (humidity.innerHTML == "" && feelsLike.innerHTML == "" && wind.innerHTML == "") {
         humidityTitle.style.display = 'none';
         feelsTitle.style.display = 'none';
         windTitle.style.display = 'none';
         skyImg.style.display = 'none';
-    } else {
+    } 
+    else {
         humidityTitle.style.display = null;
         feelsTitle.style.display = null;
         windTitle.style.display = null;

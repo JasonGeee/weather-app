@@ -31,7 +31,7 @@ body {
 }
 
 .search-bar {
-    position: relative;
+    position: absolute;
     top: 40px;
     left: 15%;
 
@@ -41,8 +41,10 @@ body {
         padding: 3px;
         width: 220px;
     }
+
     button {
         padding: 2.5px 6px;
+        border-radius: 5px;
     }
 }
 
