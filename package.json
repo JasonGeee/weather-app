@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/JasonGeee/weather-app/issues"
   },
-  "homepage": "https://github.com/JasonGeee/weather-app#readme http://JasonGeee.github.io/weather-app",
+  "homepage": "http://JasonGeee.github.io/weather-app",
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/preset-env": "^7.18.10",
