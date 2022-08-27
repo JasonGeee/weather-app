@@ -32,6 +32,7 @@ const windTitle = document.querySelector('.wind-speed');
 searchBtn.addEventListener('click', handleSearchBtn);
 searchText.addEventListener('submit', handleSearchBtn);
 
+// URLs must use https NOT http
 
 // Search Button for Location
 function handleSearchBtn(e) {
@@ -42,7 +43,7 @@ function handleSearchBtn(e) {
 // API Weather Function
 async function weatherAPI(location) {
     try {
-        const url = `http://api.weatherapi.com/v1/forecast.json?key=ec40df2a2eb44808bf6211459221508&q=${location}&days=7&aqi=no&alerts=no`;
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=ec40df2a2eb44808bf6211459221508&q=${location}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url, {mode: 'cors'});
         const weatherData = await response.json();
 
