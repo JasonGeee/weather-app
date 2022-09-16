@@ -43,7 +43,8 @@ function handleSearchBtn(e) {
 // API Weather Function
 async function weatherAPI(location) {
     try {
-        const url = `https://api.weatherapi.com/v1/forecast.json?key=ec40df2a2eb44808bf6211459221508&q=${location}&days=7&aqi=no&alerts=no`;
+        const KEY = "ec40df2a2eb44808bf6211459221508";
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=1986480656ec490d950204923202611&q=${location}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url, {mode: 'cors'});
         const weatherData = await response.json();
 
